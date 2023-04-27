@@ -74,14 +74,14 @@ with container:
         submit_button = st.form_submit_button(label='Send')
 
     if submit_button and user_input:
-        output, total_tokens, prompt_tokens, completion_tokens = generate_response(user_input)
+        output, usage = generate_response(user_input)
         st.session_state['past'].append(user_input)
         st.session_state['generated'].append(output)
         st.session_state['model_name'].append(model_name)
-        st.session_state['total_tokens'].append(total_tokens)
+        st.session_state['total_tokens'].append(usage.total_tokens)
 
         # Calculate cost
-        cost = total_tokens * .002 / 1000
+        cost = usage.total_tokens * .002 / 1000
         st.session_state['cost'].append(cost) 
         st.session_state['total_cost'] += cost
 
