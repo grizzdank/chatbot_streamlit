@@ -1,0 +1,1 @@
+This is a Chatbot designed to interface with OpenAI ChatGPT API and deploy on Streamlit. Created based on this repo by Heiko Hotz https://github.com/marshmellow77/streamlit-chatgpt-ui

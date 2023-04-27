@@ -65,7 +65,6 @@ model = 'gpt-3.5-turbo'
 if clear_button:
     reset_state(counter)
  
-
 # Main chat loop
 response_container = st.container()
 container = st.container()
