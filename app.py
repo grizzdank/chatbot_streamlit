@@ -44,6 +44,11 @@ st.set_page_config(page_title='DAVE', page_icon=':robot_face')
 st.markdown("<h1 style='text-align: center;'>DAVE - Digital Assistant for Virtually Everything</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Powered by ChatGPT API</h3>", unsafe_allow_html=True)
 
+# Initialize session state variables
+counter = None
+if 'generated' not in st.session_state:
+    reset_state(counter)
+
 # Build sidebar, choose ChatGPT model, show cost and token statistics, and clear the conversation memory state
 st.sidebar.title('Sidebar information')
 model_name = st.sidebar.radio('Choose a model:', ('GPT-3.5', 'GPT-4 Coming soon'))
@@ -51,10 +56,6 @@ temp = st.sidebar.number_input(label='Choose the creativity of the AI, between 0
 counter = st.sidebar.empty()
 counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button('Clear Chat', key='clear')
-
-# Initialize session state variables
-if 'generated' not in st.session_state:
-    reset_state(counter)
 
 # Assign model, commented code is for when I have gpt4 api key
 # model = "gpt-3.5-turbo" if model_name == "GPT-3.5" else "gpt-4"
