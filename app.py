@@ -42,7 +42,7 @@ def reset_state():
 # Set the page title
 st.set_page_config(page_title='DAVE', page_icon=':robot_face')
 st.markdown("<h1 style='text-align: center;'>DAVE - Digital Assistant for Virtually Everything</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-alignt: center;'>Powered by CHatGPT API</h3>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Powered by CHatGPT API</h3>", unsafe_allow_html=True)
 
 # Initialize session state variables
 if 'generated' not in st.session_state:
