@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Set OpenAI API & ORG variables
-openai.organization = os.getenv('OPENAI_ORG_ID')
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# openai.organization = os.getenv('OPENAI_ORG_ID')
+# openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Function to generate a response
 def generate_response(prompt):
@@ -96,7 +96,7 @@ if st.session_state['generated']:
     with response_container:
         for i in range(len(st.session_state['generated'])):
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
-            message(st.session_state['generated'][pi], key=str(i))
+            message(st.session_state['generated'][i], key=str(i))
             st.write(
                 f"Model used: {st.session_state['model_name'][i]}; Number of tokens: {st.session_state['total_tokes'][i]}; Cost: ${st.session_state['cost'][i]:.5f}"
             )
