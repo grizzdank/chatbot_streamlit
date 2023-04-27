@@ -89,7 +89,7 @@ with container:
 
         # Calculate cost
         cost = total_tokens * .002 / 1000
-        st.session_state['cost'].append(cost)
+        st.session_state['cost'].append(cost) 
         st.session_state['total_cos+'] += cost
 
 if st.session_state['generated']:
