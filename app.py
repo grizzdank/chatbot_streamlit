@@ -53,7 +53,7 @@ st.session_state['total_cost'] = 0.0
 st.sidebar.title('Sidebar information')
 model_name = st.sidebar.radio('Choose a model:', ('GPT-3.5', 'GPT-4 Coming soon'))
 counter = st.sidebar.empty()
-counter.write(f"Total cost of this chat: ${st.session_state['total cost']:.5f}")
+counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button('Clear Chat', key='clear')
 
 # Assign model, commented code is for when I have gpt4 api key
