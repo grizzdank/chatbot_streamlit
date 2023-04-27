@@ -44,7 +44,7 @@ st.session_state['messages'] = [
     {'role': 'system', 'content': "You are a super helpful AI assistant. You will always find a way to answer the questions "
     "you are asked. If you do not know the answer you will answer truthfully that you do not know"}
     ]
-st.session_state['model name'] = []
+st.session_state['model_name'] = []
 st.session_state['cost'] = []
 st.session_state['total_tokens'] = []
 st.session_state['total_cost'] = 0.0
@@ -90,7 +90,7 @@ with container:
         # Calculate cost
         cost = total_tokens * .002 / 1000
         st.session_state['cost'].append(cost) 
-        st.session_state['total_cos+'] += cost
+        st.session_state['total_cost'] += cost
 
 if st.session_state['generated']:
     with response_container:
@@ -98,6 +98,6 @@ if st.session_state['generated']:
             message(st.session_state['past'][i], is_user=True, key=str(i) + '_user')
             message(st.session_state['generated'][i], key=str(i))
             st.write(
-                f"Model used: {st.session_state['model_name'][i]}; Number of tokens: {st.session_state['total_tokes'][i]}; Cost: ${st.session_state['cost'][i]:.5f}"
+                f"Model used: {st.session_state['model_name'][i]}; Number of tokens: {st.session_state['total_tokens'][i]}; Cost: ${st.session_state['cost'][i]:.5f}"
             )
             counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
