@@ -45,7 +45,7 @@ st.markdown("<h1 style='text-align: center;'>DAVE - Digital Assistant for Virtua
 st.markdown("<h3 style='text-align: center;'>Powered by ChatGPT API</h3>", unsafe_allow_html=True)
 
 # Initialize session state variables
-counter = None
+counter = st.sidebar.empty()
 if 'generated' not in st.session_state:
     reset_state(counter)
 
