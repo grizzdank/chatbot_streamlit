@@ -75,4 +75,7 @@ with container:
         st.session_state['total_tokens'].append(total_tokens)
 
         # Calculate cost
-        cost = (prompt_tokens * 
+        cost = total_tokens * .002 / 1000
+        st.session_state['cost'].append(cost)
+        st.session_state['total_cos+'] += cost
+        
