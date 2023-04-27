@@ -2,13 +2,7 @@ import openai
 import streamlit as st
 from streamlit_chat import message
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-# Set OpenAI API & ORG variables
-# openai.organization = os.getenv('OPENAI_ORG_ID')
-# openai.api_key = os.getenv('OPENAI_API_KEY')
 
 # Function to generate a response
 def generate_response(prompt):
@@ -24,30 +18,35 @@ def generate_response(prompt):
     )
     response = completion.choices[0].message.content
     st.session_state['messages'].append({"role": "assistant", "content": response})
-    total_tokens = completion.usage.total_tokens
-    prompt_tokens = completion.usage.prompt_tokens
-    completion_tokens = completion.usage.completion_tokens
-    return response, total_tokens, prompt_tokens, completion_tokens
+
+    return response, completion.usage
 
 # Function to update total cost in sidebar
 def update_total_cost():
     counter.write(f"Total cost of this conversation: ${st.session_state['total_cost']:.5f}")
 
+# Function to reset the session state variables
+def reset_state():
+    st.session_state['generated'] = []
+    st.session_state['past'] = []
+    st.session_state['messages'] = [
+        {'role': 'system', 'content': "You are a helpful AI assistant. You will always find a way to answer the questions "
+        "you are asked. If you do not know the answer you will answer truthfully that you do not know"}
+        ]
+    st.session_state['model_name'] = []
+    st.session_state['cost'] = []
+    st.session_state['total_tokens'] = []
+    st.session_state['total_cost'] = 0.0
+    update_total_cost()
+
 # Set the page title
 st.set_page_config(page_title='DAVE', page_icon=':robot_face')
 st.markdown("<h1 style='text-align: center;'>DAVE - Digital Assistant for Virtually Everything</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-alignt: center;'>Powered by CHatGPT API</h3>", unsafe_allow_html=True)
 
 # Initialize session state variables
-st.session_state['generated'] = []
-st.session_state['past'] = []
-st.session_state['messages'] = [
-    {'role': 'system', 'content': "You are a super helpful AI assistant. You will always find a way to answer the questions "
-    "you are asked. If you do not know the answer you will answer truthfully that you do not know"}
-    ]
-st.session_state['model_name'] = []
-st.session_state['cost'] = []
-st.session_state['total_tokens'] = []
-st.session_state['total_cost'] = 0.0
+if 'generated' not in st.session_state:
+    reset_state()
 
 # Build sidebar, choose ChatGPT model, show cost and token statistics, and clear the conversation memory state
 st.sidebar.title('Sidebar information')
@@ -62,14 +61,8 @@ model = 'gpt-3.5-turbo'
 
 # Reset everything
 if clear_button:
-    st.session_state['generated'] = []
-    st.session_state['past'] = []
-    st.session_state['messages'] = [{"role": "system", "content": "You are a helpful assistant."}]
-    st.session_state['model_name'] = []
-    st.session_state['cost'] = []
-    st.session_state['total_tokens'] = []
-    st.session_state['total_cost'] = 0.0
-    update_total_cost()
+    reset_state()
+ 
 
 # Main chat loop
 response_container = st.container()
