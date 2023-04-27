@@ -14,7 +14,7 @@ def generate_response(prompt):
     completion = openai.ChatCompletion.create(
         model=model,
         messages=st.session_state['messages'],
-        temperature=1 # Adjust the temperature here
+        temperature=temp # Adjust the temperature in the sidebar
     )
     response = completion.choices[0].message.content
     st.session_state['messages'].append({"role": "assistant", "content": response})
@@ -51,6 +51,7 @@ if 'generated' not in st.session_state:
 # Build sidebar, choose ChatGPT model, show cost and token statistics, and clear the conversation memory state
 st.sidebar.title('Sidebar information')
 model_name = st.sidebar.radio('Choose a model:', ('GPT-3.5', 'GPT-4 Coming soon'))
+temp = st.sidebar.number_input(label='Choose the creativity of the AI, between 0 and 1:', min_value=0.0, max_value=1.0, value=0.5)
 counter = st.sidebar.empty()
 counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button('Clear Chat', key='clear')
