@@ -22,11 +22,11 @@ def generate_response(prompt):
     return response, completion.usage
 
 # Function to update total cost in sidebar
-def update_total_cost():
+def update_total_cost(counter):
     counter.write(f"Total cost of this conversation: ${st.session_state['total_cost']:.5f}")
 
 # Function to reset the session state variables
-def reset_state():
+def reset_state(counter):
     st.session_state['generated'] = []
     st.session_state['past'] = []
     st.session_state['messages'] = [
@@ -37,16 +37,12 @@ def reset_state():
     st.session_state['cost'] = []
     st.session_state['total_tokens'] = []
     st.session_state['total_cost'] = 0.0
-    update_total_cost()
+    update_total_cost(counter)
 
 # Set the page title
 st.set_page_config(page_title='DAVE', page_icon=':robot_face')
 st.markdown("<h1 style='text-align: center;'>DAVE - Digital Assistant for Virtually Everything</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Powered by ChatGPT API</h3>", unsafe_allow_html=True)
-
-# Initialize session state variables
-if 'generated' not in st.session_state:
-    reset_state()
 
 # Build sidebar, choose ChatGPT model, show cost and token statistics, and clear the conversation memory state
 st.sidebar.title('Sidebar information')
@@ -56,13 +52,17 @@ counter = st.sidebar.empty()
 counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button('Clear Chat', key='clear')
 
+# Initialize session state variables
+if 'generated' not in st.session_state:
+    reset_state(counter)
+
 # Assign model, commented code is for when I have gpt4 api key
 # model = "gpt-3.5-turbo" if model_name == "GPT-3.5" else "gpt-4"
 model = 'gpt-3.5-turbo'
 
 # Reset everything
 if clear_button:
-    reset_state()
+    reset_state(counter)
  
 
 # Main chat loop
