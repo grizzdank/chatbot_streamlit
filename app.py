@@ -84,7 +84,7 @@ with container:
         if model_name == 'GPT-3.5':
             cost = usage.total_tokens * .002 / 1000
         elif model_name == 'GPT-4':
-            cost = (prompt_tokens * 0.03 + completion_tokens * 0.06) / 1000
+            cost = (usage.prompt_tokens * 0.03 + usage.completion_tokens * 0.06) / 1000
         st.session_state['cost'].append(cost) 
         st.session_state['total_cost'] += cost
 
