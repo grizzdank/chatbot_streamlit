@@ -51,15 +51,14 @@ if 'generated' not in st.session_state:
 
 # Build sidebar, choose ChatGPT model, show cost and token statistics, and clear the conversation memory state
 st.sidebar.title('Sidebar information')
-model_name = st.sidebar.radio('Choose a model:', ('GPT-3.5', 'GPT-4 Coming soon'))
+model_name = st.sidebar.radio('Choose a model:', ('GPT-3.5', 'GPT-4'))
 temp = st.sidebar.number_input(label='Choose the creativity of the AI, between 0 and 1:', min_value=0.0, max_value=1.0, value=1.0)
 counter = st.sidebar.empty()
 counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button('Clear Chat', key='clear')
 
 # Assign model, commented code is for when I have gpt4 api key
-# model = "gpt-3.5-turbo" if model_name == "GPT-3.5" else "gpt-4"
-model = 'gpt-3.5-turbo'
+model = "gpt-3.5-turbo" if model_name == "GPT-3.5" else "gpt-4"
 
 # Reset everything
 if clear_button:
