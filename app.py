@@ -58,7 +58,7 @@ counter.write(f"Total cost of this chat: ${st.session_state['total_cost']:.5f}")
 clear_button = st.sidebar.button('Clear Chat', key='clear')
 
 # Assign model, commented code is for when I have gpt4 api key
-model = "gpt-3.5-turbo" if model_name == "GPT-3.5" else "gpt-4"
+model = "gpt-3.5-turbo" if model_name == "GPT-3.5" else "gpt-4" 
 
 # Reset everything
 if clear_button:
